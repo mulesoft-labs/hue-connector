@@ -1,0 +1,37 @@
+<!-- BEGIN_INCLUDE(hue:change-light-state) -->
+<hue:change-light-state lightId="1" xmlns:hue="hue" on="true" brightness="6"/>
+<!-- END_INCLUDE(hue:change-light-state) -->
+
+<!-- BEGIN_INCLUDE(hue:set-light-state) -->
+<hue:set-light-state lightId="1" xmlns:hue="hue">
+    <hue:state ref="#[payload]"/>
+</hue:set-light-state>
+<!-- END_INCLUDE(hue:set-light-state) -->
+
+<!-- BEGIN_INCLUDE(hue:set-group-state) -->
+<hue:set-group-state groupId="0" xmlns:hue="hue">
+   <hue:state on="false"/>
+</hue:set-group-state>
+<!-- END_INCLUDE(hue:set-group-state) -->
+
+<!-- BEGIN_INCLUDE(hue:get-lights) -->
+<hue:get-lights xmlns:hue="hue"/>
+<!-- END_INCLUDE(hue:get-lights) -->
+
+<!-- BEGIN_INCLUDE(hue:create-schedule) -->
+<hue:create-schedule scheduleName="My Wake up alarm" time="2011-03-30T14:24:40" xmlns:hue="hue">
+    <hue:command ref="#[payload]"/>
+</hue:create-schedule>
+<!-- END_INCLUDE(hue:create-schedule) -->
+
+<!-- BEGIN_INCLUDE(hue:get-light-state) -->
+<hue:get-light-state lightId="2" xmlns:hue="hue"/>
+<!-- END_INCLUDE(hue:get-light-state) -->
+
+<!-- BEGIN_INCLUDE(hue:get-group-state) -->
+<hue:get-group-state groupId="1" xmlns:hue="hue"/>
+<!-- END_INCLUDE(hue:get-group-state) -->
+
+<!-- BEGIN_INCLUDE(hue:create-schedule2) -->
+<!--<hue:create-schedule schedule="#[payload]" xmlns:hue="hue"/>-->
+<!-- END_INCLUDE(hue:create-schedule2) -->

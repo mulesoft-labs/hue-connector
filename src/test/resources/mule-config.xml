@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:hue="http://www.mulesoft.org/schema/mule/hue"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.4/mule.xsd
+        http://www.mulesoft.org/schema/mule/hue http://www.mulesoft.org/schema/mule/hue/current/mule-hue.xsd">
+
+    <hue:config ipAddress="${hue.ipAddress}" username="${hue.username}"/>
+
+    <flow name="getLightsFlow">
+        <hue:get-lights/>
+    </flow>
+
+    <flow name="getLightStateFlow">
+        <hue:get-light-state lightId="1"/>
+    </flow>
+
+    <flow name="setLightStateFlow">
+        <hue:set-light-state lightId="1">
+            <hue:state  ref="#[payload]"/>
+        </hue:set-light-state>
+    </flow>
+
+    <flow name="getGroupStateFlow">
+        <hue:get-group-state groupId="0"/>
+    </flow>
+
+    <flow name="setGroupStateFlow">
+        <hue:set-group-state groupId="0">
+            <hue:state ref="#[payload]"/>
+        </hue:set-group-state>
+    </flow>
+
+    <flow name="createScheduleFlow">
+        <hue:create-schedule scheduleName="#[payload.name]" time="#[payload.time]" description="#[payload.description]">
+            <hue:command ref="#[payload.command]"/>
+        </hue:create-schedule>
+    </flow>
+
+
+</mule>
