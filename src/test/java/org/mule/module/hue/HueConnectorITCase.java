@@ -27,6 +27,11 @@ import org.junit.Test;
  */
 public class HueConnectorITCase extends MuleITCase
 {
+    /**
+     * hue.ipAddress: The local ip address for the hue base station
+     * hue.username: The username that has access to the hue base station
+     * @return these two required property names
+     */
     @Override
     protected String[] getRequiredPropertiesForTest()
     {
@@ -108,7 +113,7 @@ public class HueConnectorITCase extends MuleITCase
         state.setOn(true);
 
         Command c = new Command();
-        c.setMethod("PUT");
+        c.setMethod(Command.Method.PUT);
         c.setAddress("/api/muletest1234/lights/1/state");
         c.setBody(state);
 

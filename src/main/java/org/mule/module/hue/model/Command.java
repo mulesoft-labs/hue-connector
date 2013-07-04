@@ -21,6 +21,12 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
 public class Command
 {
+    public enum Method {
+        GET,
+        POST,
+        PUT,
+        DELETE
+    }
 
     /**
      * The actions of the command. The only thing that seems to make sense for this
@@ -40,7 +46,7 @@ public class Command
      * The HTTP method to invoke. Either GET, POST, PUT or DELETE
      */
     @JsonProperty("method")
-    private String	method;
+    private Method method;
 
     public CommandBody getBody()
     {
@@ -62,12 +68,12 @@ public class Command
         this.address = address;
     }
 
-    public String getMethod()
+    public Method getMethod()
     {
         return method;
     }
 
-    public void setMethod(String method)
+    public void setMethod(Method method)
     {
         this.method = method;
     }

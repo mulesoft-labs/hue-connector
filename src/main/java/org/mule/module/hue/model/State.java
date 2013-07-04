@@ -72,26 +72,26 @@ public class State implements CommandBody
         /**
          * The light is not performing an alert effect.
          */
-        none,
+        None,
         /**
          * The light is performing one breathe cycle.
          */
-        select,
+        Select,
         /**
          * The light is performing breathe cycles for 30 seconds or until an <code>"alert": "none"</code> command is received.
          */
-        lselect
+        Lselect
     }
 
     public static enum Effect {
         /**
          * no effect
          */
-        none,
+        None,
         /**
          * cycles through all supported colors
          */
-        colorloop
+        Colorloop
     }
 
     /**
