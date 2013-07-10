@@ -83,7 +83,7 @@ public class HueConnectorITCase extends MuleITCase
 
         Flow flow = lookupFlowConstruct("setLightStateFlow");
         State state = new State();
-        state.setHue(101);
+        state.setColor("blue");
         state.setOn(true);
         MuleEvent response = flow.process(getTestEvent(state));
         String payload = response.getMessageAsString();
@@ -96,7 +96,7 @@ public class HueConnectorITCase extends MuleITCase
     {
         Flow flow = lookupFlowConstruct("setGroupStateFlow");
         State state = new State();
-        state.setHue(102);
+        state.setColor("blue");
         state.setOn(true);
         MuleEvent response = flow.process(getTestEvent(state));
         String payload = response.getMessageAsString();

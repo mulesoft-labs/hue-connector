@@ -1,4 +1,8 @@
 <!-- BEGIN_INCLUDE(hue:change-light-state) -->
+<hue:config ipAddress="192.168.4.12" username="testuser1234" xmlns:hue="hue"/>
+<!-- END_INCLUDE(hue:change-light-state) -->
+
+<!-- BEGIN_INCLUDE(hue:change-light-state) -->
 <hue:change-light-state lightId="1" xmlns:hue="hue" on="true" brightness="6"/>
 <!-- END_INCLUDE(hue:change-light-state) -->
 

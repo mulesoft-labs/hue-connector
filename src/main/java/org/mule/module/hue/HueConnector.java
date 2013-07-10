@@ -36,6 +36,8 @@ import org.codehaus.jackson.map.ObjectMapper;
  * This connector does not cover the full API rather the more common things that
  * a developer would automate from Mule.
  *
+ * {@sample.xml ../../../doc/hue-connector.xml.sample hue:config}
+ *
  * @author ross@mulesoft.com
  */
 @Connector(name = "hue", schemaVersion = "1.0", friendlyName = "Philips Hue", minMuleVersion = "3.4.0")

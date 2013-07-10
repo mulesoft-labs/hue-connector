@@ -9,15 +9,10 @@ package org.mule.module.hue.model;
 
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.module.hue.ColourConverter;
-import org.mule.util.StringUtils;
+import org.mule.module.hue.ColourUtils;
 
-import java.awt.*;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -40,58 +35,30 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
 public class State implements CommandBody
 {
-    private static final Map<String, java.awt.Color> COLOR_MAP;
-
-    static
-    {
-        COLOR_MAP = loadColorMap();
-    }
-
-    private static Map<String, java.awt.Color> loadColorMap()
-    {
-        try
-        {
-            final Map<String, java.awt.Color> colorMap = new HashMap<String, java.awt.Color>();
-            for (final Field f : java.awt.Color.class.getFields())
-            {
-                if (f.getType() == java.awt.Color.class)
-                {
-                    final java.awt.Color c = (java.awt.Color) f.get(null);
-                    colorMap.put(f.getName().toUpperCase(), c);
-                }
-            }
-            return colorMap;
-        }
-        catch (final IllegalAccessException iae)
-        {
-            throw new RuntimeException(iae);
-        }
-    }
-
     public static enum Alert {
         /**
          * The light is not performing an alert effect.
          */
-        None,
+        none,
         /**
          * The light is performing one breathe cycle.
          */
-        Select,
+        select,
         /**
          * The light is performing breathe cycles for 30 seconds or until an <code>"alert": "none"</code> command is received.
          */
-        Lselect
+        lselect
     }
 
     public static enum Effect {
         /**
          * no effect
          */
-        None,
+        none,
         /**
          * cycles through all supported colors
          */
-        Colorloop
+        colorloop
     }
 
     /**
@@ -310,39 +277,8 @@ public class State implements CommandBody
 
     public void setColor(String color)
     {
-        this.color = color;
-        Color c = parseColor(color);
-        double[] xyz = ColourConverter.colorToXyz(c);
-        double[] xy = ColourConverter.XyzToXy(xyz);
-
-        setXy(String.valueOf(xy[0]) + "," + xy[1]);
-    }
-
-
-    public static java.awt.Color parseColor(final String colorString)
-    {
-        if (StringUtils.equalsIgnoreCase(colorString, "on"))
-        {
-            return java.awt.Color.WHITE;
-        }
-        else if (StringUtils.equalsIgnoreCase(colorString, "off"))
-        {
-            return java.awt.Color.BLACK;
-        }
-        else if (StringUtils.startsWith(colorString, "#"))
-        {
-            return ColourConverter.decodeHtmlColorString(colorString);
-        }
-
-        final java.awt.Color color = COLOR_MAP.get(StringUtils.upperCase(colorString));
-        if (color == null)
-        {
-            throw new IllegalArgumentException("Invalid color: " + colorString);
-        }
-        else
-        {
-            return color;
-        }
+        xyColor = ColourUtils.getXYForColour(color);
+        setXy(String.valueOf(xyColor.get(0)) + "," + xyColor.get(1));
     }
 
     @JsonIgnore
